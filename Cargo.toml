@@ -1,0 +1,35 @@
+[package]
+name = "egui-appmenu"
+version = "0.1.0"
+edition = "2024"
+description = "Describe an eframe/egui app's menu bar once; get a native menu on macOS/Windows (via muda) and an in-window egui menu bar everywhere else."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/patchbaylabs/egui-appmenu"
+
+[dependencies]
+eframe = "0.35"
+egui = "0.35"
+
+# Native menu backends: macOS attaches with no window handle at all
+# (`Menu::init_for_nsapp`, process-global), Windows attaches to the eframe
+# window's HWND (`Menu::init_for_hwnd`). Both need `muda` to be main-thread
+# only, which is exactly the thread `eframe::run_native`'s builder closure
+# (and so `AppMenu::new`) runs on. Every other OS falls back to an in-window
+# egui menu bar (`src/fallback.rs`) with no `muda` dependency at all.
+[target.'cfg(any(target_os = "macos", target_os = "windows"))'.dependencies]
+muda = "0.19"
+
+# Only needed to pull the HWND out of eframe's `CreationContext` and to wire
+# `TranslateAcceleratorW` into winit's Win32 message loop so `muda`
+# accelerators fire — see `src/windows.rs`.
+[target.'cfg(target_os = "windows")'.dependencies]
+raw-window-handle = "0.6.2"
+windows-sys = { version = "0.60", features = [
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_Foundation",
+] }
+# Pinned to the exact version eframe 0.35 vendors, so `with_msg_hook`'s
+# `EventLoopBuilder<UserEvent>` (from `NativeOptions::event_loop_builder`)
+# and the one this crate hooks are the same winit, not two coexisting
+# copies that happen to both compile.
+winit = { version = "=0.30.13", default-features = false }
