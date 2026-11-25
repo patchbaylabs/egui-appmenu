@@ -5,7 +5,7 @@
 **Describe your menu bar once — native on macOS and Windows, in-window everywhere else.**
 
 [![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT_OR_Apache--2.0-blue)](LICENSE-MIT)
-[![eframe/egui](https://img.shields.io/badge/eframe%2Fegui-0.35-orange)](https://crates.io/crates/eframe)
+[![eframe/egui](https://img.shields.io/badge/eframe%2Fegui-0.37-orange)](https://crates.io/crates/eframe)
 [![Rust edition](https://img.shields.io/badge/rust-edition_2024-orange)](https://doc.rust-lang.org/edition-guide/)
 [![Platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20Windows%20%7C%20Linux-green)](#platform-support)
 
@@ -56,7 +56,7 @@ egui-appmenu = { git = "https://github.com/patchbaylabs/egui-appmenu" }
 ```
 
 > [!NOTE]
-> Pinned to eframe/egui 0.35 and muda 0.19, the versions this crate was extracted from three existing apps' `native_menu.rs` modules to share.
+> Pinned to eframe/egui 0.37 and muda 0.22, the versions this crate was extracted from three existing apps' `native_menu.rs` modules to share.
 
 ## Usage
 

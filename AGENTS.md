@@ -17,9 +17,9 @@ shortcuts come back as `A`, and `set_enabled`/`set_checked` key off `A`.
 
 Pinned versions — do not bump independently:
 
-- eframe/egui `0.35`
-- muda `0.19`
-- winit `=0.30.13` (exact pin to match the winit eframe 0.35 vendors — the
+- eframe/egui `0.37`
+- muda `0.22`
+- winit `=0.30.13` (exact pin to match the winit eframe 0.37 vendors — the
   `with_msg_hook` hook only works if this crate and eframe share one winit)
 
 ### Module map
@@ -112,8 +112,10 @@ Patterns that matter here:
 - `cargo build --release` — artifacts land in `target/` (gitignored).
 - No CI pipeline yet (no `.github/workflows`); the checks below are the de facto
   gate.
-- Publishing is standard `cargo publish` territory; version is `0.1.0`, not yet on
-  crates.io.
+- Publishing is standard `cargo publish` territory; version is `0.37.0`, not yet on crates.io.
+- **Versioning:** the crate's minor version matches the eframe/egui minor it
+  targets (`0.37.x` ↔ egui `0.37`). Bump the minor when bumping egui; use patch
+  releases for fixes that keep the same egui.
 
 ## Pull Request Guidelines
 

@@ -126,7 +126,7 @@ pub(crate) fn build<A: Clone + Eq + Hash + Send + Sync + 'static>(
 
     let ids = Arc::new(ids);
     let pending: Arc<Mutex<VecDeque<A>>> = Arc::new(Mutex::new(VecDeque::new()));
-    MenuEvent::set_event_handler(Some({
+    MenuEvent::set_event_handler(Some(Arc::new({
         let ids = Arc::clone(&ids);
         let pending = Arc::clone(&pending);
         move |event: MenuEvent| {
@@ -138,7 +138,7 @@ pub(crate) fn build<A: Clone + Eq + Hash + Send + Sync + 'static>(
                 ctx.request_repaint();
             }
         }
-    }));
+    })));
 
     BuiltMenu {
         menu,
@@ -263,5 +263,5 @@ fn to_muda_accelerator(accelerator: &Accelerator) -> MudaAccelerator {
         Key::Equals => Code::Equal,
         Key::Slash => Code::Slash,
     };
-    MudaAccelerator::new(Some(mods), code)
+    MudaAccelerator::new(mods, code)
 }
